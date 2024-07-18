@@ -14,6 +14,7 @@ class WelcomeViewController: UIViewController {
         button.backgroundColor = .systemGreen
         button.setTitle("Sign up", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 20
         return button
     }()
     
