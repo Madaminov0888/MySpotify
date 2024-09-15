@@ -29,7 +29,7 @@ class TabBarViewController: UITabBarController {
         searchBar.tabBarItem.image = UIImage(systemName: "magnifyingglass")
         
         yourLibrary.tabBarItem.title = "Your Library"
-        yourLibrary.tabBarItem.image = UIImage(systemName: "music.note.list")
+        yourLibrary.tabBarItem.image = UIImage(systemName: "play.square.stack")
         yourLibrary.tabBarItem.selectedImage = UIImage(systemName: "play.square.stack.fill")
         
         self.tabBar.tintColor = .white

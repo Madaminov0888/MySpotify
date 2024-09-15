@@ -23,6 +23,12 @@
 		D50965382C46927100B1B03F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50965372C46927100B1B03F /* AuthManager.swift */; };
 		D509653A2C46927B00B1B03F /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50965392C46927B00B1B03F /* APIManager.swift */; };
 		D53A025F2C48402800E3304E /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A025E2C48402800E3304E /* UIColor+.swift */; };
+		D562D2C92C75C3BA0009EC53 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562D2C82C75C3BA0009EC53 /* UIView+.swift */; };
+		D562D2CB2C7611AD0009EC53 /* CustomWKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562D2CA2C7611AD0009EC53 /* CustomWKWebView.swift */; };
+		D562D2CD2C7613B50009EC53 /* AuthResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562D2CC2C7613B50009EC53 /* AuthResponseModel.swift */; };
+		D5AC07562C89EA6D00F6D193 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AC07552C89EA6D00F6D193 /* UserProfile.swift */; };
+		D5AC07582C89F0C200F6D193 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AC07572C89F0C200F6D193 /* ProfileViewController.swift */; };
+		D5B74B842C9481B900974595 /* PlaylistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B74B832C9481B900974595 /* PlaylistModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +50,12 @@
 		D50965372C46927100B1B03F /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		D50965392C46927B00B1B03F /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		D53A025E2C48402800E3304E /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		D562D2C82C75C3BA0009EC53 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		D562D2CA2C7611AD0009EC53 /* CustomWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWKWebView.swift; sourceTree = "<group>"; };
+		D562D2CC2C7613B50009EC53 /* AuthResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponseModel.swift; sourceTree = "<group>"; };
+		D5AC07552C89EA6D00F6D193 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		D5AC07572C89F0C200F6D193 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		D5B74B832C9481B900974595 /* PlaylistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +105,9 @@
 		D50965202C46824600B1B03F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D562D2CC2C7613B50009EC53 /* AuthResponseModel.swift */,
+				D5AC07552C89EA6D00F6D193 /* UserProfile.swift */,
+				D5B74B832C9481B900974595 /* PlaylistModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -108,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				D50965172C46821600B1B03F /* LaunchScreen.storyboard */,
+				D562D2CA2C7611AD0009EC53 /* CustomWKWebView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -137,6 +153,7 @@
 				D50965252C46879D00B1B03F /* TabBarViewController.swift */,
 				D50965272C4689F300B1B03F /* SearchViewController.swift */,
 				D50965292C468A0200B1B03F /* YourLibraryViewController.swift */,
+				D5AC07572C89F0C200F6D193 /* ProfileViewController.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -157,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				D53A025E2C48402800E3304E /* UIColor+.swift */,
+				D562D2C82C75C3BA0009EC53 /* UIView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -232,14 +250,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				D50965282C4689F300B1B03F /* SearchViewController.swift in Sources */,
+				D5B74B842C9481B900974595 /* PlaylistModel.swift in Sources */,
 				D50965382C46927100B1B03F /* AuthManager.swift in Sources */,
 				D50965302C46919600B1B03F /* WelcomeViewController.swift in Sources */,
 				D509652A2C468A0200B1B03F /* YourLibraryViewController.swift in Sources */,
+				D562D2CD2C7613B50009EC53 /* AuthResponseModel.swift in Sources */,
 				D50965262C46879D00B1B03F /* TabBarViewController.swift in Sources */,
 				D509652E2C46918A00B1B03F /* AuthViewController.swift in Sources */,
+				D562D2CB2C7611AD0009EC53 /* CustomWKWebView.swift in Sources */,
+				D5AC07562C89EA6D00F6D193 /* UserProfile.swift in Sources */,
+				D5AC07582C89F0C200F6D193 /* ProfileViewController.swift in Sources */,
 				D50965112C46821600B1B03F /* HomeViewController.swift in Sources */,
 				D50965342C46925B00B1B03F /* PlaylistViewController.swift in Sources */,
 				D509650D2C46821600B1B03F /* AppDelegate.swift in Sources */,
+				D562D2C92C75C3BA0009EC53 /* UIView+.swift in Sources */,
 				D509650F2C46821600B1B03F /* SceneDelegate.swift in Sources */,
 				D509653A2C46927B00B1B03F /* APIManager.swift in Sources */,
 				D50965362C46926600B1B03F /* PlayerViewController.swift in Sources */,
