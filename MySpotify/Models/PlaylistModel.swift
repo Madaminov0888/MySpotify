@@ -8,6 +8,15 @@
 import Foundation
 
 
+
+
+protocol UserFeatProtocol: Codable, Identifiable {
+    var id: String { get }
+    var name: String { get }
+    var images: [PlaylistImage] { get }
+}
+
+
 struct PlaylistResponseModel: Codable {
     let href: String
     let limit: Int
@@ -39,7 +48,7 @@ struct FeaturedPlaylistsModel: Codable {
 
 
 
-struct PlaylistModel: Codable {
+struct PlaylistModel: Codable, UserFeatProtocol {
     let collaborative: Bool
     let description: String
     let externalUrls: ExternalUrls
@@ -83,4 +92,13 @@ struct PlaylistImage: Codable {
 struct PlaylistTracks: Codable {
     let href: String
     let total: Int
+}
+
+
+
+struct LikedSongs: Codable, UserFeatProtocol {
+    var images: [PlaylistImage]
+    
+    let id: String
+    let name: String
 }

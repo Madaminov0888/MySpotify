@@ -36,6 +36,24 @@ final class APIManager {
     }
     
     
+    public func getUserLibrary() async throws -> [AlbumModel] {
+        let request = try await setRequest(with: URL(string: Constants.baseURL + "/me/albums"), type: .GET)
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let checkedData = try responseHandler(response: response, data: data)
+        let libraryResponse = try JSONDecoder().decode(SavedAlbumsResponseModel.self, from: checkedData)
+        return libraryResponse.items.map({ $0.album })
+    }
+    
+    
+    public func getTopArtists() async throws -> [TopArtistModel] {
+        let request = try await setRequest(with: URL(string: Constants.baseURL + "/me/top/artists"), type: .GET)
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let checkedData = try responseHandler(response: response, data: data)
+        let libraryResponse = try JSONDecoder().decode(TopArtistResponseModel.self, from: checkedData)
+        return libraryResponse.items
+    }
+    
+    
     //MARK: -Private
     
     

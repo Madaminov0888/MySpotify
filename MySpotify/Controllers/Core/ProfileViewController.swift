@@ -16,8 +16,6 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    //UserProfile(country: "Uz", displayName: "Muhammad", email: "", explicitContent: .init(filterEnabled: false, filterLocked: false), externalUrls: .init(spotify: ""), followers: .init(href: "", total: 10), href: "", id: "23", images: [], product: "", type: "", uri: "")
-    
     // Background view to hold the gradient layer
     private let backgroundGradientView: UIView = {
         let view = UIView()
@@ -51,7 +49,7 @@ class ProfileViewController: UIViewController {
         // Set up the background gradient view first
         
         // Setup user image or initials in the circle view
-        if user.images.count > 0 {
+        if user.images?.count ?? 0 > 0 {
             hstack.addArrangedSubview(circlePhoto)
         } else {
             circleNameLabel.text = user.displayName.first?.uppercased()
@@ -61,7 +59,7 @@ class ProfileViewController: UIViewController {
         
         // Setup display name label
         displayNameLabel.text = user.displayName
-        followersLabel.text = "\(user.followers.total) followers"
+        followersLabel.text = "\(user.followers?.total ?? 0) followers"
         vstack.addArrangedSubview(displayNameLabel)
         vstack.addArrangedSubview(followersLabel)
         hstack.addArrangedSubview(vstack)
@@ -152,6 +150,7 @@ class ProfileViewController: UIViewController {
         let label = UILabel()
         label.text = ""
         label.textAlignment = .left
+        label.numberOfLines = 2
         label.textColor = .white
         label.font = .systemFont(ofSize: 30, weight: .semibold)
         return label
@@ -161,7 +160,7 @@ class ProfileViewController: UIViewController {
         let label = UILabel()
         label.text = ""
         label.textAlignment = .left
-        label.textColor = .systemGray
+        label.textColor = .lightGray
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         return label
     }()
@@ -200,11 +199,11 @@ class ProfileViewController: UIViewController {
         let button = UIButton(type: .roundedRect)
         button.setTitle("Edit", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
-        button.setTitleColor(.systemGray2, for: .normal)
+        button.setTitleColor(.lightGray, for: .normal)
         button.backgroundColor = .clear
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 18
-        button.layer.borderColor = UIColor.systemGray2.cgColor
+        button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 1
         return button
     }()
@@ -213,7 +212,7 @@ class ProfileViewController: UIViewController {
         let button = UIButton()
         let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .semibold)
         button.setImage(UIImage(systemName: "square.and.arrow.up", withConfiguration: config), for: .normal)
-        button.imageView?.tintColor = .systemGray2
+        button.imageView?.tintColor = .lightGray
         return button
     }()
     
@@ -221,7 +220,7 @@ class ProfileViewController: UIViewController {
         let button = UIButton()
         let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .semibold)
         button.setImage(UIImage(systemName: "ellipsis", withConfiguration: config), for: .normal)
-        button.imageView?.tintColor = .systemGray2
+        button.imageView?.tintColor = .lightGray
         return button
     }()
     
