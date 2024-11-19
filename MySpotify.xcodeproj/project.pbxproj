@@ -23,6 +23,7 @@
 		D50965382C46927100B1B03F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50965372C46927100B1B03F /* AuthManager.swift */; };
 		D509653A2C46927B00B1B03F /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50965392C46927B00B1B03F /* APIManager.swift */; };
 		D513D1E02CAFE4FC00A3A9E4 /* FeatPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D513D1DF2CAFE4FC00A3A9E4 /* FeatPlaylistViewController.swift */; };
+		D51B144F2CD686630030F307 /* ColorKit in Frameworks */ = {isa = PBXBuildFile; productRef = D51B144E2CD686630030F307 /* ColorKit */; };
 		D51EAAA82CBE5AF3006F7EAA /* ArtistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51EAAA72CBE5AF3006F7EAA /* ArtistModel.swift */; };
 		D51EAAAA2CBE5B1D006F7EAA /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51EAAA92CBE5B1D006F7EAA /* TrackModel.swift */; };
 		D51EAAAC2CBE5B76006F7EAA /* TopItemsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51EAAAB2CBE5B76006F7EAA /* TopItemsModel.swift */; };
@@ -33,7 +34,9 @@
 		D562D2C92C75C3BA0009EC53 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562D2C82C75C3BA0009EC53 /* UIView+.swift */; };
 		D562D2CB2C7611AD0009EC53 /* CustomWKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562D2CA2C7611AD0009EC53 /* CustomWKWebView.swift */; };
 		D562D2CD2C7613B50009EC53 /* AuthResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562D2CC2C7613B50009EC53 /* AuthResponseModel.swift */; };
-		D56D87BF2CC2A01E00322272 /* ColorKit in Frameworks */ = {isa = PBXBuildFile; productRef = D56D87BE2CC2A01E00322272 /* ColorKit */; };
+		D563E2C12CCB8DA800932F0C /* TrackResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563E2C02CCB8DA800932F0C /* TrackResponseModel.swift */; };
+		D57137CE2CECF55E001A49FC /* PlaylistPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57137CD2CECF55E001A49FC /* PlaylistPageViewModel.swift */; };
+		D59295222CD789E20087AB95 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59295212CD789E20087AB95 /* HomeViewModel.swift */; };
 		D59688A22CA5CFF300690BCA /* SavedTracksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59688A12CA5CFF300690BCA /* SavedTracksModel.swift */; };
 		D59D94CC2CB8678100282A37 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59D94CB2CB8677B00282A37 /* UIFont+.swift */; };
 		D59D94D02CB8694600282A37 /* FeatViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59D94CF2CB8694600282A37 /* FeatViewCell.swift */; };
@@ -73,6 +76,9 @@
 		D562D2C82C75C3BA0009EC53 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		D562D2CA2C7611AD0009EC53 /* CustomWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWKWebView.swift; sourceTree = "<group>"; };
 		D562D2CC2C7613B50009EC53 /* AuthResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponseModel.swift; sourceTree = "<group>"; };
+		D563E2C02CCB8DA800932F0C /* TrackResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackResponseModel.swift; sourceTree = "<group>"; };
+		D57137CD2CECF55E001A49FC /* PlaylistPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPageViewModel.swift; sourceTree = "<group>"; };
+		D59295212CD789E20087AB95 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D59688A12CA5CFF300690BCA /* SavedTracksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTracksModel.swift; sourceTree = "<group>"; };
 		D59D94CB2CB8677B00282A37 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		D59D94CF2CB8694600282A37 /* FeatViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatViewCell.swift; sourceTree = "<group>"; };
@@ -92,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D56D87BF2CC2A01E00322272 /* ColorKit in Frameworks */,
+				D51B144F2CD686630030F307 /* ColorKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +149,7 @@
 				D51EAAA72CBE5AF3006F7EAA /* ArtistModel.swift */,
 				D5B74B832C9481B900974595 /* PlaylistModel.swift */,
 				D59688A12CA5CFF300690BCA /* SavedTracksModel.swift */,
+				D563E2C02CCB8DA800932F0C /* TrackResponseModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -150,6 +157,8 @@
 		D50965212C46825100B1B03F /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				D59295212CD789E20087AB95 /* HomeViewModel.swift */,
+				D57137CD2CECF55E001A49FC /* PlaylistPageViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -278,7 +287,7 @@
 			);
 			mainGroup = D50965002C46821500B1B03F;
 			packageReferences = (
-				D56D87BD2CC2A01E00322272 /* XCRemoteSwiftPackageReference "ColorKit" */,
+				D51B144D2CD686630030F307 /* XCRemoteSwiftPackageReference "ColorKit" */,
 			);
 			productRefGroup = D509650A2C46821600B1B03F /* Products */;
 			projectDirPath = "";
@@ -314,10 +323,13 @@
 				D562D2CD2C7613B50009EC53 /* AuthResponseModel.swift in Sources */,
 				D50965262C46879D00B1B03F /* TabBarViewController.swift in Sources */,
 				D5DF87092CA6D8A20034612A /* MediaDownloader.swift in Sources */,
+				D59295222CD789E20087AB95 /* HomeViewModel.swift in Sources */,
 				D5027DB92CA57DD10077AF42 /* AlbumsModel.swift in Sources */,
 				D513D1E02CAFE4FC00A3A9E4 /* FeatPlaylistViewController.swift in Sources */,
+				D57137CE2CECF55E001A49FC /* PlaylistPageViewModel.swift in Sources */,
 				D509652E2C46918A00B1B03F /* AuthViewController.swift in Sources */,
 				D51EAAAE2CBE6017006F7EAA /* TopArtistsCollectionViewController.swift in Sources */,
+				D563E2C12CCB8DA800932F0C /* TrackResponseModel.swift in Sources */,
 				D562D2CB2C7611AD0009EC53 /* CustomWKWebView.swift in Sources */,
 				D5AC07562C89EA6D00F6D193 /* UserProfile.swift in Sources */,
 				D5AC07582C89F0C200F6D193 /* ProfileViewController.swift in Sources */,
@@ -564,7 +576,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D56D87BD2CC2A01E00322272 /* XCRemoteSwiftPackageReference "ColorKit" */ = {
+		D51B144D2CD686630030F307 /* XCRemoteSwiftPackageReference "ColorKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Boris-Em/ColorKit";
 			requirement = {
@@ -575,9 +587,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D56D87BE2CC2A01E00322272 /* ColorKit */ = {
+		D51B144E2CD686630030F307 /* ColorKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D56D87BD2CC2A01E00322272 /* XCRemoteSwiftPackageReference "ColorKit" */;
+			package = D51B144D2CD686630030F307 /* XCRemoteSwiftPackageReference "ColorKit" */;
 			productName = ColorKit;
 		};
 /* End XCSwiftPackageProductDependency section */

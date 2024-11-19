@@ -54,6 +54,19 @@ final class APIManager {
     }
     
     
+    public func getPlaylistTracks(with playlistID: String, total: Int) async throws -> [Track] {
+        var tracksTotal: [Track] = []
+        for i in 0...total/100 {
+            let request = try await setRequest(with: URL(string: Constants.baseURL + "/playlists/\(playlistID)/tracks?limit=100&offset=\(i*100)"), type: .GET)
+            let (data, response) = try await URLSession.shared.data(for: request)
+            let checkedData = try responseHandler(response: response, data: data)
+            let tracksResponse = try JSONDecoder().decode(PlaylistTracksResponse.self, from: checkedData)
+            tracksTotal.append(contentsOf: tracksResponse.items.compactMap({ $0.track }))
+        }
+        return tracksTotal
+    }
+    
+    
     //MARK: -Private
     
     

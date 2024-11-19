@@ -15,14 +15,16 @@ class HomeViewController: UIViewController {
     private var featuredPlaylistCollectionVC: FeatPlaylistViewController?
     private var topArtistsCollectionVC: TopArtistsCollectionViewController?
     
+    private let apiManager = APIManager()
+    
     var sectionSelector: SectionSelector = .all {
         didSet {
             self.setNavButtons()
         }
     }
-    
-    private let apiManager = APIManager()
 
+    
+    
     // UI Components
     private var profileButton: UIButton = {
         let button = UIButton()
@@ -110,7 +112,42 @@ class HomeViewController: UIViewController {
         self.setUpFeatPlaylistsView()
         self.setUpTopArtistView()
     }
+ 
+
+    @objc private func profileButtonAction() {
+        let vc = ProfileViewController()
+        vc.navigationItem.largeTitleDisplayMode = .automatic
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
+    @objc private func allButtonActions() {
+        self.sectionSelector = .all
+        self.setNavButtons()
+        self.view.layoutIfNeeded()
+    }
+    
+    @objc private func musicButtonActions() {
+        self.sectionSelector = .music
+        self.setNavButtons()
+        self.view.layoutIfNeeded()
+    }
+    
+    @objc private func podcastButtonActions() {
+        self.sectionSelector = .podcast
+        self.setNavButtons()
+        self.view.layoutIfNeeded()
+    }
+}
+
+
+
+
+
+
+
+
+//MARK: setUpFunctions
+private extension HomeViewController {
     private func setUpStackView() {
         // Setup scrollView and stackView
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -236,29 +273,5 @@ class HomeViewController: UIViewController {
             profileButton.widthAnchor.constraint(equalToConstant: 40),
             profileButton.heightAnchor.constraint(equalToConstant: 40)
         ])
-    }
-
-    @objc private func profileButtonAction() {
-        let vc = ProfileViewController()
-        vc.navigationItem.largeTitleDisplayMode = .automatic
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @objc private func allButtonActions() {
-        self.sectionSelector = .all
-        self.setNavButtons()
-        self.view.layoutIfNeeded()
-    }
-    
-    @objc private func musicButtonActions() {
-        self.sectionSelector = .music
-        self.setNavButtons()
-        self.view.layoutIfNeeded()
-    }
-    
-    @objc private func podcastButtonActions() {
-        self.sectionSelector = .podcast
-        self.setNavButtons()
-        self.view.layoutIfNeeded()
     }
 }

@@ -16,6 +16,8 @@ class FeatPlaylistViewController: UICollectionViewController, UICollectionViewDe
     let apiManager = APIManager()
     var heightDidChange: ((CGFloat) -> Void)?
     
+    let vm: HomeViewModel = HomeViewModel()
+    
     
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -38,7 +40,8 @@ class FeatPlaylistViewController: UICollectionViewController, UICollectionViewDe
         self.collectionView!.register(FeatViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView.delegate = self
         self.collectionView.showsHorizontalScrollIndicator = false
-        self.setTasks()
+        vm.delegate = self
+        vm.getFeatPlaylists()
     }
     
     
@@ -57,21 +60,6 @@ class FeatPlaylistViewController: UICollectionViewController, UICollectionViewDe
     private func updateHeight() {
         let contentHeight = collectionView.collectionViewLayout.collectionViewContentSize.width
         heightDidChange?(contentHeight)
-    }
-    
-    func setTasks() {
-        Task {
-            do {
-                let featuredPlaylists = try await apiManager.getUsersFeaturedPlaylists().playlists.items
-                await MainActor.run {
-                    self.playlists = featuredPlaylists
-                    self.collectionView.reloadData()
-                    self.updateHeight()
-                }
-            } catch {
-                print(error)
-            }
-        }
     }
     
     
@@ -112,4 +100,18 @@ class FeatPlaylistViewController: UICollectionViewController, UICollectionViewDe
         return true
     }
 
+}
+
+
+
+extension FeatPlaylistViewController: HomeViewModelDelegate {
+    func didFail(error: any Error) {
+        print(error.localizedDescription)
+    }
+    
+    func didFinishLoadingPlaylists(_ playlists: [PlaylistModel]) {
+        self.playlists = playlists
+        self.collectionView.reloadData()
+        self.updateHeight()
+    }
 }
