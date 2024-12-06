@@ -35,6 +35,7 @@ class FeatPlaylistViewController: UICollectionViewController, UICollectionViewDe
     
 
     override func viewDidLoad() {
+        print("view did loaded")
         super.viewDidLoad()
         self.collectionView.backgroundColor = .csBackgroundColor
         self.collectionView!.register(FeatViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)

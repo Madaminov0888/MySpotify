@@ -4,22 +4,36 @@
 //
 //  Created by Muhammadjon Madaminov on 25/10/24.
 //
+//
+//  MusicsViewController.swift
+//  MySpotify
+//
+//  Created by Muhammadjon Madaminov on 25/10/24.
+//
+//
+//  MusicsViewController.swift
+//  MySpotify
+//
+//  Created by Muhammadjon Madaminov on 25/10/24.
+//
 
 import UIKit
-
 
 class MusicsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let playlist: PlaylistModel?
     let vm = PlaylistPageViewModel()
+    var tracks: [Track] = []
     
     
-    init(playlist: PlaylistModel, layout: UICollectionViewLayout = UICollectionViewFlowLayout()) {
+    init(playlist: PlaylistModel, layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()) {
         self.playlist = playlist
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 0
+        layout.sectionHeadersPinToVisibleBounds = true
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 70)
         super.init(collectionViewLayout: layout)
-        self.view.layoutIfNeeded()
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -27,18 +41,35 @@ class MusicsViewController: UICollectionViewController, UICollectionViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set delegate
+        vm.delegate = self
+        self.collectionView.delegate = self
+        
+        // Fetch tracks if playlist exists
+        if let playlist = playlist {
+            vm.fetchTracks(with: playlist)
+        }
+        
         // Register cell
         self.collectionView!.register(MusicsCellView.self, forCellWithReuseIdentifier: MusicsCellView.identifier)
         
-        self.collectionView.backgroundColor = .clear
-        self.view.backgroundColor = .clear 
-        
-        // Register header view correctly
+        // Register header view
         self.collectionView.register(
             HeaderCollectionReusableView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: HeaderCollectionReusableView.reuseIdentifier
         )
+        
+        // Set background colors
+        self.collectionView.backgroundColor = .clear
+        self.view.backgroundColor = .clear
+        
+        // Remove default content inset
+        self.collectionView.contentInset = .zero
+        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.sectionInset = .zero
+        }
     }
     
     // MARK: UICollectionViewDataSource
@@ -48,7 +79,7 @@ class MusicsViewController: UICollectionViewController, UICollectionViewDelegate
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return vm.tracks.count
+        return tracks.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -56,8 +87,7 @@ class MusicsViewController: UICollectionViewController, UICollectionViewDelegate
             return UICollectionViewCell()
         }
         
-        cell.configure(with: vm.tracks[indexPath.row])
-        
+        cell.configure(with: tracks[indexPath.row])
         return cell
     }
     
@@ -65,6 +95,7 @@ class MusicsViewController: UICollectionViewController, UICollectionViewDelegate
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
+            print("Header is being created")
             let headerView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
                 withReuseIdentifier: HeaderCollectionReusableView.reuseIdentifier,
@@ -82,42 +113,28 @@ class MusicsViewController: UICollectionViewController, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: 150)
     }
+
     
+    // MARK: UICollectionViewDelegateFlowLayout
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .zero // Ensure no padding
+    }
     
-    // MARK: UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0 // No spacing between items
+    }
     
-    /*
-     // Uncomment this method to specify if the specified item should be highlighted during tracking
-     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-     return true
-     }
-     
-     // Uncomment this method to specify if the specified item should be selected
-     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-     return true
-     }
-     
-     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-     return false
-     }
-     
-     override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-     return false
-     }
-     
-     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-     
-     }
-     */
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0 // No spacing between rows
+    }
 }
 
-
+// MARK: - PlaylistPageViewModelProtocol
 
 extension MusicsViewController: PlaylistPageViewModelProtocol {
     func didFinishLoadingTracks(_ tracks: [Track]) {
+        self.tracks = tracks
         self.collectionView.reloadData()
     }
     

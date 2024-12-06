@@ -52,7 +52,7 @@ class ProfileViewController: UIViewController {
         if user.images?.count ?? 0 > 0 {
             hstack.addArrangedSubview(circlePhoto)
         } else {
-            circleNameLabel.text = user.displayName.first?.uppercased()
+            circleNameLabel.text = user.displayName?.first?.uppercased()
             hstack.addArrangedSubview(circleNameLabel)
         }
         

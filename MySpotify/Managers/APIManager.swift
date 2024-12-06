@@ -28,7 +28,7 @@ final class APIManager {
     
     
     public func getUsersFeaturedPlaylists() async throws -> FeaturedPlaylistResponseModel {
-        let request = try await setRequest(with: URL(string: Constants.baseURL + "/browse/featured-playlists"), type: .GET)
+        let request = try await setRequest(with: URL(string: Constants.baseURL + "/browse/featured-playlists?country=US&locale=en_US"), type: .GET)
         let (data, response) = try await URLSession.shared.data(for: request)
         let checkedData = try responseHandler(response: response, data: data)
         let featuredPlaylistsResponse = try JSONDecoder().decode(FeaturedPlaylistResponseModel.self, from: checkedData)
@@ -105,7 +105,6 @@ final class APIManager {
             print(" Error Raw response data: \(String(data: data, encoding: .utf8) ?? "Invalid data")")
             throw URLError(.badServerResponse)
         }
-//        print(" SUCCESS Raw response data: \(String(data: data, encoding: .utf8) ?? "Invalid data")")
         return data
     }
     

@@ -34,6 +34,7 @@ class PlaylistPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.musicsViewController.collectionView.delegate = self
         self.view.backgroundColor = .csBackgroundColor
         self.navigationItem.hidesBackButton = true
         setupUI()
@@ -55,6 +56,9 @@ class PlaylistPageViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
+    private var coverImageHeightConstraint: NSLayoutConstraint!
+    private var coverImageTopConstraint: NSLayoutConstraint!
+
     private func setupUI() {
         setBackgroundGradient()
         
@@ -64,11 +68,14 @@ class PlaylistPageViewController: UIViewController {
         view.addSubview(playlistCoverImageView)
         playlistCoverImageView.translatesAutoresizingMaskIntoConstraints = false
         
+        coverImageHeightConstraint = playlistCoverImageView.heightAnchor.constraint(equalToConstant: view.frame.width / 5 * 3)
+        coverImageTopConstraint = playlistCoverImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        
         NSLayoutConstraint.activate([
-            playlistCoverImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            coverImageTopConstraint,
             playlistCoverImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            playlistCoverImageView.widthAnchor.constraint(equalToConstant: view.frame.width / 5 * 3),
-            playlistCoverImageView.heightAnchor.constraint(equalToConstant: view.frame.width / 5 * 3),
+            playlistCoverImageView.widthAnchor.constraint(equalTo: playlistCoverImageView.heightAnchor), // Maintain aspect ratio
+            coverImageHeightConstraint,
             
             backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -92,6 +99,7 @@ class PlaylistPageViewController: UIViewController {
             musicsViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
     
     private let backButton: UIButton = {
         let button = UIButton()
@@ -162,6 +170,26 @@ class PlaylistPageViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
 }
+
+
+//
+//extension PlaylistPageViewController: UICollectionViewDelegate {
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let offsetY = scrollView.contentOffset.y
+//        let maxHeight = view.frame.width / 5 * 3
+//        let newHeight = max(maxHeight - offsetY, 20)
+//
+//        coverImageHeightConstraint.constant = newHeight
+//        playlistCoverImageView.layer.opacity = Float(newHeight/maxHeight)
+//        coverImageTopConstraint.constant = max(view.safeAreaInsets.top, view.safeAreaInsets.top - offsetY)
+//
+//        // Ensure the gradient stays behind the header and cover image
+//        gradientLayer.frame = backgroundGradientView.bounds
+//    }
+//}
+
+
+
 
 
 

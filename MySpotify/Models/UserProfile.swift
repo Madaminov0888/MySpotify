@@ -12,13 +12,13 @@ import Foundation
 
 struct UserProfile: Codable {
     let country: String?
-    let displayName: String
+    let displayName: String?
     let email: String?  
     let explicitContent: ExplicitContent?
     let externalUrls: ExternalUrls
     let followers: Followers?
     let href: String
-    let id: String
+    let id: String?
     let images: [Image]?
     let product: String?
     let type: String

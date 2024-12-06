@@ -56,7 +56,7 @@ struct PlaylistModel: Codable, UserFeatProtocol {
     let id: String
     let images: [PlaylistImage]
     let name: String
-    let owner: UserProfile
+    let owner: UserProfile?
     let isPublic: Bool
     let snapshotId: String
     let tracks: PlaylistTracks

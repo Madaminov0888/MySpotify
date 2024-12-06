@@ -12,10 +12,10 @@ class MusicsCellView: UICollectionViewCell {
     static let identifier = "MusicsCellView"
     private let mediaManager = MediaDownloader()
     
-    private var trackNameLabel = UILabel()
-    private var trackImage = UIImageView()
-    private var trackAuthorLabel = UILabel()
-    private var toolbar = UIButton()
+    private let trackNameLabel = UILabel()
+    private let trackImage = UIImageView()
+    private let trackAuthorLabel = UILabel()
+    private let toolbar = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,6 +24,14 @@ class MusicsCellView: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        trackImage.image = UIImage(systemName: "music.note")
+        trackImage.tintColor = .white
+        trackImage.contentMode = .scaleAspectFit
+        trackImage.backgroundColor = .csLightGray
     }
     
     
@@ -36,8 +44,11 @@ class MusicsCellView: UICollectionViewCell {
             do {
                 if let imageURL = track.album?.images.first?.url {
                     let image = try await mediaManager.downloadImage(url: imageURL)
-                    await MainActor.run {
-                        self.trackImage.image = image
+                    await MainActor.run { [weak self] in
+//                        self?.trackImage.image = image
+                        if self?.trackNameLabel.text == track.name {
+                            self?.trackImage.image = image
+                        }
                     }
                 }
             } catch {
@@ -68,54 +79,53 @@ extension MusicsCellView { //MARK: Views
             trackImage.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
             trackImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10),
             
-            trackNameLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
-            trackNameLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10),
-            trackNameLabel.leadingAnchor.constraint(equalTo: self.trackImage.trailingAnchor, constant: 10),
+            trackImage.widthAnchor.constraint(equalToConstant: 50),
+            trackImage.heightAnchor.constraint(equalToConstant: 50),
             
-            trackAuthorLabel.topAnchor.constraint(equalTo: self.trackNameLabel.bottomAnchor, constant: 10),
+            trackNameLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
+            trackNameLabel.bottomAnchor.constraint(equalTo: self.trackAuthorLabel.topAnchor),
+            trackNameLabel.leadingAnchor.constraint(equalTo: self.trackImage.trailingAnchor, constant: 10),
+            trackNameLabel.trailingAnchor.constraint(lessThanOrEqualTo: toolbar.leadingAnchor, constant: -10),
+            
+            trackAuthorLabel.topAnchor.constraint(equalTo: self.trackNameLabel.bottomAnchor),
             trackAuthorLabel.leadingAnchor.constraint(equalTo: self.trackImage.trailingAnchor, constant: 10),
             trackAuthorLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10),
+            trackAuthorLabel.trailingAnchor.constraint(lessThanOrEqualTo: toolbar.leadingAnchor, constant: -10),
             
-            toolbar.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
-            toolbar.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10),
-            toolbar.leadingAnchor.constraint(equalTo: self.trackNameLabel.trailingAnchor, constant: 10),
-            toolbar.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
+            toolbar.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            toolbar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            toolbar.widthAnchor.constraint(equalToConstant: 30),
+            toolbar.heightAnchor.constraint(equalToConstant: 30),
         ])
     }
     
     private func setTrackNameLabel() {
-        let nameLabel = UILabel()
-        nameLabel.text = ""
-        nameLabel.font = .systemFont(ofSize: 20, weight: .medium)
-        nameLabel.textColor = .white
-        nameLabel.textAlignment = .left
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.trackNameLabel = nameLabel
+        trackNameLabel.text = ""
+        trackNameLabel.font = .systemFont(ofSize: 20, weight: .medium)
+        trackNameLabel.textColor = .white
+        trackNameLabel.textAlignment = .left
+        trackNameLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setTrackAuthorLabel() {
-        let authorLabel = UILabel()
-        authorLabel.text = ""
-        authorLabel.font = .systemFont(ofSize: 15, weight: .medium)
-        authorLabel.textColor = .csLightGray
-        authorLabel.textAlignment = .left
-        authorLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.trackAuthorLabel = authorLabel
+        trackAuthorLabel.text = ""
+        trackAuthorLabel.font = .systemFont(ofSize: 15, weight: .medium)
+        trackAuthorLabel.textColor = .lightText
+        trackAuthorLabel.textAlignment = .left
+        trackAuthorLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setTrackImageView() {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "placeholder")
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        self.trackImage = imageView
+        trackImage.image = UIImage(named: "placeholder")
+        trackImage.contentMode = .scaleAspectFill
+        trackImage.clipsToBounds = true
+        trackImage.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setToolsButton() {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        self.toolbar = button
+        toolbar.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        toolbar.tintColor = .white
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
     }
+    
 }

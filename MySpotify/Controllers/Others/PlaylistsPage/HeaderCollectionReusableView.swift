@@ -5,7 +5,7 @@
 //  Created by Muhammadjon Madaminov on 25/10/24.
 //
 
-import UIKit
+
 import UIKit
 
 class HeaderCollectionReusableView: UICollectionReusableView {
@@ -46,12 +46,12 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         guard let playlist else { return }
         self.playlist = playlist
         nameLabel.text = playlist.name
-        ownerLabel.text = playlist.owner.displayName.capitalized
+        ownerLabel.text = playlist.owner?.displayName?.capitalized
 
-        if let ownerImageUrl = playlist.owner.images?.first?.url {
+        if let ownerImageUrl = playlist.owner?.images?.first?.url {
             downloadImage(image: ownerImageUrl)
         } else {
-            circleNameLabel.text = playlist.owner.displayName.first?.uppercased()
+            circleNameLabel.text = playlist.owner?.displayName?.first?.uppercased()
         }
         getPlaylistTotalTime()
     }
@@ -71,10 +71,11 @@ class HeaderCollectionReusableView: UICollectionReusableView {
     }
 
     private func setStacks() {
+        //set stacks
         vstack.addArrangedSubview(nameLabel)
         vstack.addArrangedSubview(hstack)
 
-        if let _ = playlist?.owner.images?.first?.url {
+        if let _ = playlist?.owner?.images?.first?.url {
             hstack.addArrangedSubview(ownerDisplayImage)
             NSLayoutConstraint.activate([
                 ownerDisplayImage.widthAnchor.constraint(equalToConstant: 20),
@@ -91,6 +92,10 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         }
         hstack.addArrangedSubview(ownerLabel)
         vstack.addArrangedSubview(playlistTotalTimeLabel)
+        
+        //set ui components
+        self.setToolbarHStack()
+        self.setLibraryButton()
     }
 
     private let vstack: UIStackView = {
@@ -154,7 +159,65 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         label.attributedText = combinedAttributedString
         return label
     }()
+    
+    
+    private let AddtoLibraryButton = UIButton()
+    private let downloadButton = UIButton()
+    private let moreButton = UIButton()
+    private let shuffleButton = UIButton()
+    private let playBUtton = UIButton()
+    private let toolbarHStack = UIStackView()
+    
+    private let coverImageView = UIImageView()
+    
+}
 
+
+
+
+
+//MARK: -Toolbar
+extension HeaderCollectionReusableView {
+    private func setToolbarHStack() {
+        toolbarHStack.axis = .horizontal
+        toolbarHStack.distribution = .fillEqually
+        toolbarHStack.spacing = 10
+        toolbarHStack.alignment = .leading
+        toolbarHStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.vstack.addArrangedSubview(toolbarHStack)
+    }
+    
+    
+    private func setLibraryButton() {
+        AddtoLibraryButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
+        AddtoLibraryButton.tintColor = .black
+        AddtoLibraryButton.backgroundColor = .systemGreen
+        AddtoLibraryButton.translatesAutoresizingMaskIntoConstraints = false
+        AddtoLibraryButton.layer.cornerRadius = 20
+        
+        self.toolbarHStack.addArrangedSubview(AddtoLibraryButton)
+    }
+    
+}
+
+
+
+
+//MARK: -Views
+extension HeaderCollectionReusableView {
+    private func SetCoverImage() {
+        
+    }
+}
+
+
+
+
+
+
+//MARK: -Functions
+extension HeaderCollectionReusableView {
     private func getPlaylistTotalTime() {
         guard let playlist = playlist else { return }
         Task {
@@ -162,9 +225,15 @@ class HeaderCollectionReusableView: UICollectionReusableView {
                 let tracks = try await apiManager.getPlaylistTracks(with: playlist.id, total: playlist.tracks.total)
                 let totalTime = tracks.reduce(0) { $0 + $1.durationMs }
                 await MainActor.run {
-                    let attrStr = NSMutableAttributedString(attributedString: playlistTotalTimeLabel.attributedText ?? NSAttributedString())
-                    attrStr.append(NSAttributedString(string: formatDuration(milliseconds: totalTime)))
-                    playlistTotalTimeLabel.attributedText = attrStr
+                    let newAttributedString = NSMutableAttributedString()
+                    
+                    if let currentAttributedText = playlistTotalTimeLabel.attributedText {
+                        newAttributedString.append(currentAttributedText.attributedSubstring(from: NSRange(location: 0, length: 1)))
+                    }
+                
+                    newAttributedString.append(NSAttributedString(string: formatDuration(milliseconds: totalTime)))
+                    
+                    playlistTotalTimeLabel.attributedText = newAttributedString
                     layoutIfNeeded()
                 }
             } catch {
