@@ -168,7 +168,10 @@ class HeaderCollectionReusableView: UICollectionReusableView {
     private let playBUtton = UIButton()
     private let toolbarHStack = UIStackView()
     
-    private let coverImageView = UIImageView()
+    private let playlistCoverImageView = UIImageView()
+    
+    private var coverImageHeightConstraint: NSLayoutConstraint!
+    private var coverImageTopConstraint: NSLayoutConstraint!
     
 }
 
@@ -207,7 +210,18 @@ extension HeaderCollectionReusableView {
 //MARK: -Views
 extension HeaderCollectionReusableView {
     private func SetCoverImage() {
+        self.addSubview(playlistCoverImageView)
+        playlistCoverImageView.translatesAutoresizingMaskIntoConstraints = false
         
+        coverImageHeightConstraint = playlistCoverImageView.heightAnchor.constraint(equalToConstant: self.frame.width / 5 * 3)
+        coverImageTopConstraint = playlistCoverImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor)
+        
+        NSLayoutConstraint.activate([
+            coverImageTopConstraint,
+            playlistCoverImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            playlistCoverImageView.widthAnchor.constraint(equalTo: playlistCoverImageView.heightAnchor), // Maintain aspect ratio
+            coverImageHeightConstraint,
+        ])
     }
 }
 

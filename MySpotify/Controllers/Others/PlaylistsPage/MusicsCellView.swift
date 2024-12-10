@@ -34,6 +34,9 @@ class MusicsCellView: UICollectionViewCell {
         trackImage.backgroundColor = .csLightGray
     }
     
+    override func willTransition(from oldLayout: UICollectionViewLayout, to newLayout: UICollectionViewLayout) {
+        super.willTransition(from: oldLayout, to: newLayout)
+    }
     
     
     func configure(with track: Track) {
@@ -45,7 +48,6 @@ class MusicsCellView: UICollectionViewCell {
                 if let imageURL = track.album?.images.first?.url {
                     let image = try await mediaManager.downloadImage(url: imageURL)
                     await MainActor.run { [weak self] in
-//                        self?.trackImage.image = image
                         if self?.trackNameLabel.text == track.name {
                             self?.trackImage.image = image
                         }

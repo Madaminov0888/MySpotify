@@ -10,6 +10,12 @@ import Foundation
 
 final class APIManager {
     
+    
+    //https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums
+    public func getArtistsPlaylists(with artistID: String) async throws {
+        
+    }
+    
     public func getUserProfile() async throws -> UserProfile {
         let request = try await setRequest(with: URL(string: Constants.baseURL + "/me"), type: .GET)
         let (data, response) = try await URLSession.shared.data(for: request)

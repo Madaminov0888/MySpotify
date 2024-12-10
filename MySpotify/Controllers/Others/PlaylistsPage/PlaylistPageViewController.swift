@@ -92,6 +92,10 @@ class PlaylistPageViewController: UIViewController {
         
         musicsViewController.view.translatesAutoresizingMaskIntoConstraints = false
         
+        musicsViewController.scrollUpdater = { [weak self] scrollView in
+            self?.CoverImageUpdater(scrollView: scrollView)
+        }
+        
         NSLayoutConstraint.activate([
             musicsViewController.view.topAnchor.constraint(equalTo: playlistCoverImageView.bottomAnchor, constant: 20),
             musicsViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -169,6 +173,24 @@ class PlaylistPageViewController: UIViewController {
     @objc private func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    
+    
+    private func CoverImageUpdater(scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let maxHeight = self.view.frame.width / 5 * 3
+        let newHeight = max(maxHeight - offsetY, 0)
+        
+        self.coverImageHeightConstraint.constant = newHeight
+        self.playlistCoverImageView.layer.opacity = Float(newHeight/maxHeight)
+        self.coverImageTopConstraint.constant = max(self.view.safeAreaInsets.top, self.view.safeAreaInsets.top - offsetY)
+        
+        // Ensure the gradient stays behind the header and cover image
+        self.gradientLayer.frame = self.backgroundGradientView.bounds
+    }
+    
+    
+    
 }
 
 

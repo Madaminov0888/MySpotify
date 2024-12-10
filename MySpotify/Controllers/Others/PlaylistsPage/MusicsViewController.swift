@@ -24,13 +24,14 @@ class MusicsViewController: UICollectionViewController, UICollectionViewDelegate
     let playlist: PlaylistModel?
     let vm = PlaylistPageViewModel()
     var tracks: [Track] = []
+    var scrollUpdater: (_ scrollView: UIScrollView) -> () = { _ in }
     
     
     init(playlist: PlaylistModel, layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()) {
         self.playlist = playlist
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
-        layout.sectionHeadersPinToVisibleBounds = true
+//        layout.sectionHeadersPinToVisibleBounds = true
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 70)
         super.init(collectionViewLayout: layout)
     }
@@ -91,6 +92,9 @@ class MusicsViewController: UICollectionViewController, UICollectionViewDelegate
         return cell
     }
     
+    
+    
+    
     // MARK: Header View Configuration
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -107,6 +111,13 @@ class MusicsViewController: UICollectionViewController, UICollectionViewDelegate
         }
         return UICollectionReusableView()
     }
+    
+    
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollUpdater(scrollView)
+    }
+    
     
     // MARK: Header Size Configuration
     
